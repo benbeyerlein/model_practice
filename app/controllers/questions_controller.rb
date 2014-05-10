@@ -3,8 +3,10 @@ class QuestionsController < ApplicationController
     # What is the most recent movie on the list that the second actor appeared in?
 
     # Your Ruby goes here.
+    @actor = Actor.second
+    @actor_movies = @actor.movies.sort_by { |k| k["year"]}
 
-    # @most_recent_movie_for_second_actor = ???
+    @most_recent_movie_for_second_actor = @actor_movies.last.title
   end
 
   def question_2
