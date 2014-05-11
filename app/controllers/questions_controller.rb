@@ -25,7 +25,7 @@ class QuestionsController < ApplicationController
 
     max_movies_by_a_director = number_of_movies_per_director.values.max
 
-    directors_for_max_movie_count = number_of_movies_per_director.select{|k,v| v == 6 }.keys
+    directors_for_max_movie_count = number_of_movies_per_director.select{|k,v| v == max_movies_by_a_director }.keys
 
     #for each director id, list their name
     dir_loop_counter = 0
@@ -39,17 +39,31 @@ class QuestionsController < ApplicationController
     end
 
     @director_with_the_most_movies = @directors_names
-    # @director_with_the_most_movies = Director.find(5)
 
   end
 
   def question_4
     # Which actor has been in the most movies on the list?
     # (If there's a tie, any one of them is fine)
+    number_of_movies_per_actor = Role.group(:actor_id).count
+
+    max_movies_by_actor = number_of_movies_per_actor.values.max
+
+    actors_for_max_movie_count = number_of_movies_per_actor.select{|k,v| v == max_movies_by_actor }.keys
+
+    actor_loop_counter = 0
+    actors_for_max_movie_count.each do |the_actor|
+      if actor_loop_counter == 0 then
+        @actors_names = Actor.find(the_actor).name
+      else
+        @actors_names = @actors_names + " & " + Actor.find(the_actor).name
+      end
+      actor_loop_counter = actor_loop_counter + 1
+    end
 
     # Your Ruby goes here.
 
-    # @actor_with_the_most_movies = ???
+    @actor_with_the_most_movies = @actors_names
   end
 
   def question_5
