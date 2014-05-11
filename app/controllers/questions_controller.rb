@@ -21,8 +21,26 @@ class QuestionsController < ApplicationController
     # Which director has the most movies on the list?
 
     # Your Ruby goes here.
+    number_of_movies_per_director = Movie.group(:director_id).count
 
-    # @director_with_the_most_movies = ???
+    max_movies_by_a_director = number_of_movies_per_director.values.max
+
+    directors_for_max_movie_count = number_of_movies_per_director.select{|k,v| v == 6 }.keys
+
+    #for each director id, list their name
+    dir_loop_counter = 0
+    directors_for_max_movie_count.each do |the_director|
+      if dir_loop_counter == 0 then
+        @directors_names = Director.find(the_director).name
+      else
+        @directors_names = @directors_names + " & " + Director.find(the_director).name
+      end
+      dir_loop_counter = dir_loop_counter + 1
+    end
+
+    @director_with_the_most_movies = @directors_names
+    # @director_with_the_most_movies = Director.find(5)
+
   end
 
   def question_4
