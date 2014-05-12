@@ -1,0 +1,31 @@
+<div class="page-header">
+  <h3>Question #5: Which actor/director pair has the most movies on the list?</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <p class="lead">Actor: <%= @actor.name %></p>
+    <p class="lead">Director: <%= @director.name %></p>
+
+    <p class="lead">Movies:</p>
+    <ul>
+      <% @movies_together.each do |movie| %>
+        <li><%= movie.title %> (<%= movie.year %>)</li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+
+<div class="page-header">
+  <h3>Question #5: Which actor/director pair has the most movies on the list?</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+      <p class="lead">Movies:</p>
+    <ul>
+      <%= @test %>
+    </ul>
+  </div>
+</div>
