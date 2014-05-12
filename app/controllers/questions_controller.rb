@@ -97,7 +97,8 @@ class QuestionsController < ApplicationController
 
     @actor = Actor.find(most_common_actor_id)
     @director = Director.find(most_common_director_id)
-    @movies_together = Movie.where(:director_id => most_common_director_id)
+    # @movies_together = Movie.where(:director_id => most_common_director_id)
+    @movies_together = Movie.joins(:roles).where(:director_id => most_common_director_id, :roles => {:actor_id => most_common_actor_id})
 
     # teststuff = Actor.where(:name => "Christian Bale")
     sql = Role.find_by_sql("SELECT d.name as director, a.name as actor, count(*) as count
